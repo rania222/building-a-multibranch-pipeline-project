@@ -1,9 +1,23 @@
 pipeline {
     agent any
+
     stages {
+
+        stage('Install') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'CI=true npm test -- --watchAll=false'
+            }
+        }
+
         stage('Build') {
             steps {
-                echo 'Hello world!'
+                sh 'npm run build'
             }
         }
     }
