@@ -31,5 +31,14 @@ pipeline {
         sh 'docker build -t my-react-app .'
     }
 }
+        stage('Deploy') {
+    steps {
+        sh '''
+            docker stop my-react-container || true
+            docker rm my-react-container || true
+            docker run -d --name my-react-container -p 8081:80 my-react-app:latest
+        '''
+    }
+}
     }
 }
